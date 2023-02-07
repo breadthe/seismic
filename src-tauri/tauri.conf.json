@@ -60,6 +60,10 @@
         "title": "seismic",
         "width": 800
       }
-    ]
+    ],
+    "systemTray": {
+        "iconPath": "icons/tray.png",
+        "iconAsTemplate": true
+    }
   }
 }
