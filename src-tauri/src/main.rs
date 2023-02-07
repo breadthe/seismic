@@ -118,7 +118,7 @@ fn main() {
         .add_submenu(window_menu);
 
     // ------------------------------ System Tray (toggle app visibility on click in the system tray) ------------------------------ //
-    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit").accelerator("Cmd+Q");
     let tray_menu = SystemTrayMenu::new().add_item(quit);
     let system_tray = SystemTray::new().with_menu(tray_menu);
 
