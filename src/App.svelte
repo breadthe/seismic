@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { FeatureCollection } from "./types"
+  import { tooltip } from "./tooltip"
 
   const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson"
   let downloadError = ""
@@ -36,6 +37,7 @@
   <div class="flex items-center gap-4 p-2">
     <button
       on:click={refreshData}
+      use:tooltip={{ theme: "dark-border" }} title="Click to refresh"
       class="text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
     >
       Seismic
