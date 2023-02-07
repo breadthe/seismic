@@ -118,8 +118,12 @@ fn main() {
     //     .add_submenu(window_menu);
 
     // ------------------------------ System Tray (toggle app visibility on click in the system tray) ------------------------------ //
+    // let about = CustomMenuItem::new("about".to_string(), "About");
     let quit = CustomMenuItem::new("quit".to_string(), "Quit").accelerator("Cmd+Q");
-    let tray_menu = SystemTrayMenu::new().add_item(quit);
+    let tray_menu = SystemTrayMenu::new()
+        // .add_item(about)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(quit);
     let system_tray = SystemTray::new().with_menu(tray_menu);
 
     tauri::Builder::default()
@@ -161,6 +165,23 @@ fn main() {
                 println!("system tray received a double click");
             }
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                "about" => {
+                    const APP_NAME: &str = env!("CARGO_PKG_NAME");
+                    const VERSION: &str = env!("CARGO_PKG_VERSION");
+                    const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
+                    const LICENSE: &str = env!("CARGO_PKG_LICENSE");
+                    const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
+
+                    let about_metadata = AboutMetadata::new()
+                        .version(VERSION)
+                        .authors(vec![AUTHORS.to_string()])
+                        .website(REPOSITORY)
+                        .license(LICENSE);
+
+                    println!("{} {:?}", APP_NAME, about_metadata);
+
+                    // @todo - show about dialog
+                }
                 "quit" => {
                     std::process::exit(0);
                 }
