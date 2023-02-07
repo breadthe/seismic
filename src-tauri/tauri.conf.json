@@ -55,15 +55,20 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
-        "resizable": true,
-        "title": "seismic",
-        "width": 800
+        "height": 400,
+        "resizable": false,
+        "title": "Seismic",
+        "width": 500,
+        "visible": false,
+        "skipTaskbar": true,
+        "titleBarStyle": "Overlay",
+        "decorations": true
       }
     ],
     "systemTray": {
         "iconPath": "icons/tray.png",
-        "iconAsTemplate": true
+        "iconAsTemplate": true,
+        "menuOnLeftClick": false
     }
   }
 }

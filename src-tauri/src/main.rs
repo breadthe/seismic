@@ -4,7 +4,7 @@
 )]
 
 use tauri::{AboutMetadata, Manager, Menu, MenuItem, Submenu};
-use tauri::{SystemTray, SystemTrayEvent};
+use tauri::{SystemTray, SystemTrayEvent, PhysicalPosition};
 fn main() {
     const APP_NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -71,8 +71,8 @@ fn main() {
         .system_tray(system_tray)
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::LeftClick {
-                position: _,
-                size: _,
+                position,
+                size,
                 ..
             } => {
                 let window = app.get_window("main").unwrap();
@@ -82,7 +82,15 @@ fn main() {
                 if is_visible {
                     window.hide().unwrap();
                 } else {
+                    let window_size  = window.outer_size().unwrap();
+                    let physical_pos = PhysicalPosition {
+                      x: position.x as i32 + (size.width as i32 / 2) - (window_size.width as i32 / 2),
+                      y: position.y as i32 - window_size.height as i32
+                    };
+
+                    let _ = window.set_position(tauri::Position::Physical(physical_pos));
                     window.show().unwrap();
+                    window.set_focus().unwrap();
                 }
             }
             _ => {}
