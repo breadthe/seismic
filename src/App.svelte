@@ -53,6 +53,9 @@
   </div>
 
   {#if quakeData && quakeData.type === "FeatureCollection"}
+    <div class="w-full bg-white p-2 text-sm border-b">
+        {quakeData.metadata.title} - <small class="font-bold text-xs">{quakeData.metadata.count}</small> events
+    </div>
     <div class="w-full bg-white">
       {#each quakeData.features as quake}
         <div class="flex items-center gap-4 p-2 border-b hover:bg-gray-100">
