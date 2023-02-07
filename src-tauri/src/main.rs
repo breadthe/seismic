@@ -4,7 +4,7 @@
 )]
 
 use tauri::{AboutMetadata, Manager, Menu, MenuItem, Submenu};
-use tauri::{SystemTray, SystemTrayEvent, PhysicalPosition};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, PhysicalPosition};
 fn main() {
     const APP_NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -64,7 +64,11 @@ fn main() {
         .add_submenu(window_menu);
 
     // ------------------------------ System Tray (toggle app visibility on click in the system tray) ------------------------------ //
-    let system_tray = SystemTray::new();
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let tray_menu = SystemTrayMenu::new()
+      .add_item(quit);
+    let system_tray = SystemTray::new()
+      .with_menu(tray_menu);
 
     tauri::Builder::default()
         .menu(menu)
@@ -93,6 +97,26 @@ fn main() {
                     window.set_focus().unwrap();
                 }
             }
+            SystemTrayEvent::RightClick {
+                position: _,
+                size: _,
+                ..
+            } => {
+                println!("system tray received a right click");
+            }
+            SystemTrayEvent::DoubleClick {
+                position: _,
+                size: _,
+                ..
+            } => {
+                println!("system tray received a double click");
+            }
+            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                "quit" => {
+                    std::process::exit(0);
+                }
+                _ => {}
+            },
             _ => {}
         })
         .run(tauri::generate_context!())
