@@ -62,7 +62,7 @@
   </header>
 
   {#if quakeData && quakeData.type === "FeatureCollection"}
-    <div class="w-full h-full bg-white">
+    <div class="w-full h-full min-h-screen bg-white">
       {#each quakeData.features as feature}
         <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">
           <div class="w-full flex items-center gap-4">
@@ -87,6 +87,8 @@
         </div>
       {/each}
     </div>
+  {:else}
+    <p class="mt-36 text-center text-gray-600">💡 click the logo to refresh earthquake data</p>
   {/if}
 </main>
 
