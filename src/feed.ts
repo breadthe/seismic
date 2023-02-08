@@ -1,8 +1,11 @@
-import { feedDownloadError, fetchingFeed, feedData } from './store'
+import { feedDownloadError, fetchingFeed, feedData, lastFetchedAt } from './store'
 
 export const fetchFeed = async function () {
     const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson'
+
     feedDownloadError.set('')
+    lastFetchedAt.set(Date.now())
+
     try {
         const response = await fetch(url)
 

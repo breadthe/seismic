@@ -1,10 +1,10 @@
 <script lang="ts">
   import appLogo from './assets/128x128@2x.png'
   import { onMount } from 'svelte'
-  import { feedDownloadError, fetchingFeed, feedData } from './store'
+  import { feedDownloadError, fetchingFeed, feedData, lastFetchedAt } from './store'
   import { tooltip } from './tooltip'
   import { fetchFeed } from './feed'
-  import { round1 } from './utils'
+  import { round1, diffForHumans, timestampToLocalString } from './utils'
 
   async function refreshData() {
     fetchingFeed.set(true)
@@ -37,6 +37,8 @@
       {#if $feedDownloadError}
         <small class="font-xs text-red-600">{$feedDownloadError}</small>
       {/if}
+
+      <small class="font-xs text-gray-600" title={timestampToLocalString($lastFetchedAt)}>{diffForHumans($lastFetchedAt)}</small>
     </div>
 
     {#if $feedData && $feedData.type === 'FeatureCollection'}
