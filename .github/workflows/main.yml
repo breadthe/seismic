@@ -27,7 +27,6 @@ jobs:
       - name: Rust setup
         uses: actions-rs/toolchain@v1
         with:
-          node-version: 16
           toolchain: stable
 
       - name: Install dependencies (ubuntu only)
