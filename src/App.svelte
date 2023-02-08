@@ -9,11 +9,21 @@
   async function refreshData() {
     fetchingFeed.set(true)
     await fetchFeed()
-    fetchingFeed.set(false)
+    setTimeout(() => {
+      fetchingFeed.set(false)
+    }, 1000)
   }
 
   onMount(async () => {
     await refreshData()
+
+    const interval = setInterval(async () => {
+      await refreshData()
+    }, 1000 * 60) // 60 seconds
+
+    return () => {
+      clearInterval(interval)
+    }
   })
 </script>
 
@@ -38,7 +48,9 @@
         <small class="font-xs text-red-600">{$feedDownloadError}</small>
       {/if}
 
-      <small class="font-xs text-gray-600" title={timestampToLocalString($lastFetchedAt)}>{diffForHumans($lastFetchedAt)}</small>
+      <!-- <small class="font-xs text-gray-600" title={timestampToLocalString($lastFetchedAt)}>
+        {diffForHumans($lastFetchedAt)}
+      </small> -->
     </div>
 
     {#if $feedData && $feedData.type === 'FeatureCollection'}
@@ -62,7 +74,7 @@
               <p class="font-bold" class:text-red-600={feature.properties.mag >= 7}>
                 {feature.properties.place}
               </p>
-              <small class="font-xs text-gray-600">{new Date(feature.properties.time).toLocaleString()}</small>
+              <small class="font-xs text-gray-600">{timestampToLocalString(feature.properties.time)}</small>
             </div>
           </div>
 
