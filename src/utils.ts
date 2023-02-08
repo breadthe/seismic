@@ -1,7 +1,7 @@
 
 // Round a number to 1 decimal
-export const round1 = function (num: number): number {
-    return Math.round(num * 10) / 10
+export const round1 = function (num: number): string {
+    return (Math.round(num * 10) / 10).toFixed(1)
 }
 
 // Converts a timestamp to a difference string like "2 hours ago"

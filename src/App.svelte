@@ -65,7 +65,7 @@
       {#each $feedData.features as feature}
         <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">
           <div class="w-full flex items-center gap-4">
-            <div class="w-8">
+            <div class="w-8 text-center">
               <span class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
                 {round1(feature.properties.mag)}
               </span>
