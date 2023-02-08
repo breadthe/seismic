@@ -37,7 +37,8 @@
   <div class="flex items-center gap-4 p-2">
     <button
       on:click={refreshData}
-      use:tooltip={{ theme: "dark-border" }} title="Click to refresh"
+      use:tooltip={{ theme: "dark-border" }}
+      title="Click to refresh"
       class="text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
     >
       Seismic
@@ -54,21 +55,29 @@
 
   {#if quakeData && quakeData.type === "FeatureCollection"}
     <div class="w-full bg-white p-2 text-sm border-b">
-        {quakeData.metadata.title} - <small class="font-bold text-xs">{quakeData.metadata.count}</small> events
+      {quakeData.metadata.title} - <small class="font-bold text-xs">{quakeData.metadata.count}</small> events
     </div>
     <div class="w-full bg-white">
-      {#each quakeData.features as quake}
-        <div class="flex items-center gap-4 p-2 border-b hover:bg-gray-100">
-          <div>
-            <span class:font-bold={quake.properties.mag >= 4.5} class:text-red-600={quake.properties.mag >= 7}>
-              {quake.properties.mag}
-            </span>
+      {#each quakeData.features as feature}
+        <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">
+          <div class="w-full flex items-center gap-4">
+            <div class="w-8">
+              <span class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
+                {feature.properties.mag}
+              </span>
+            </div>
+            <div class="flex-1">
+              <p class="font-bold" class:text-red-600={feature.properties.mag >= 7}>
+                {feature.properties.place}
+              </p>
+              <small class="font-xs text-gray-600">{new Date(feature.properties.time).toLocaleString()}</small>
+            </div>
           </div>
-          <div>
-            <p class="font-bold" class:text-red-600={quake.properties.mag >= 7}>
-              {quake.properties.place}
-            </p>
-            <small class="font-xs text-gray-600">{new Date(quake.properties.time).toLocaleString()}</small>
+
+          <div class="w-24 text-right">
+            <small class="font-xs text-gray-600" title="Depth">
+              {Math.round(feature.geometry.coordinates[2] * 10) / 10} km
+            </small>
           </div>
         </div>
       {/each}
