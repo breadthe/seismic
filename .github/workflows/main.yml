@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          node-version: 16
 
       - name: Node.js setup
         uses: actions/setup-node@v1
@@ -25,6 +27,7 @@ jobs:
       - name: Rust setup
         uses: actions-rs/toolchain@v1
         with:
+          node-version: 16
           toolchain: stable
 
       - name: Install dependencies (ubuntu only)
