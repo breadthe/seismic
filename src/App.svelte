@@ -30,6 +30,11 @@
       console.error(error)
     }
   }
+
+  // Round a number to 1 decimal
+  function round1(num: number): number {
+    return Math.round(num * 10) / 10
+  }
 </script>
 
 <main class="w-full overflow-hide">
@@ -68,7 +73,7 @@
           <div class="w-full flex items-center gap-4">
             <div class="w-8">
               <span class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
-                {feature.properties.mag}
+                {round1(feature.properties.mag)}
               </span>
             </div>
             <div class="flex-1">
@@ -81,7 +86,7 @@
 
           <div class="w-24 text-right">
             <small class="font-xs text-gray-600" title="Depth">
-              {Math.round(feature.geometry.coordinates[2] * 10) / 10} km
+              {round1(feature.geometry.coordinates[2])} km
             </small>
           </div>
         </div>
