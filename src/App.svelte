@@ -33,31 +33,36 @@
   }
 </script>
 
-<main class="w-full h-full">
-  <div class="flex items-center gap-4 p-2">
-    <button
-      on:click={refreshData}
-      use:tooltip={{ theme: "dark-border" }}
-      title="Click to refresh"
-      class="text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
-    >
-      Seismic
-    </button>
+<main class="w-full overflow-hide">
+  <header class="sticky top-0 z-10 bg-gray-100">
+    <div class="flex items-center gap-4 p-2 ">
+      <button
+        on:click={refreshData}
+        use:tooltip={{ theme: "dark-border" }}
+        title="Click to refresh"
+        class="text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
+      >
+        Seismic
+      </button>
 
-    {#if loading}
-      <small class="font-xs text-gray-600">fetching data...</small>
-    {/if}
+      {#if loading}
+        <small class="font-xs text-gray-600">fetching data...</small>
+      {/if}
 
-    {#if downloadError}
-      <small class="font-xs text-red-600">{downloadError}</small>
+      {#if downloadError}
+        <small class="font-xs text-red-600">{downloadError}</small>
+      {/if}
+    </div>
+
+    {#if quakeData && quakeData.type === "FeatureCollection"}
+      <div class="w-full bg-white p-2 text-sm border-b">
+        {quakeData.metadata.title} - <small class="font-bold text-xs">{quakeData.metadata.count}</small> events
+      </div>
     {/if}
-  </div>
+  </header>
 
   {#if quakeData && quakeData.type === "FeatureCollection"}
-    <div class="w-full bg-white p-2 text-sm border-b">
-      {quakeData.metadata.title} - <small class="font-bold text-xs">{quakeData.metadata.count}</small> events
-    </div>
-    <div class="w-full bg-white">
+    <div class="w-full h-full bg-white">
       {#each quakeData.features as feature}
         <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">
           <div class="w-full flex items-center gap-4">
