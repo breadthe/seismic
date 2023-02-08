@@ -1,32 +1,29 @@
 <script lang="ts">
-  import appLogo from "./assets/128x128@2x.png"
-  import type { FeatureCollection } from "./types"
-  import { tooltip } from "./tooltip"
-
-  const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson"
-  let downloadError = ""
-  let loading = false
-  let quakeData: FeatureCollection | undefined = undefined
+  import appLogo from './assets/128x128@2x.png'
+  import type { FeatureCollection } from './types'
+  import { feedDownloadError, fetchingFeed, feedData } from './store'
+  import { tooltip } from './tooltip'
 
   async function refreshData() {
-    loading = true
-    await innerDownload()
-    loading = false
+    fetchingFeed.set(true)
+    await fetchFeed()
+    fetchingFeed.set(false)
   }
 
-  async function innerDownload() {
-    downloadError = ""
+  async function fetchFeed() {
+    const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson'
+    feedDownloadError.set('')
     try {
       const response = await fetch(url)
 
-      quakeData = await response.json()
+      feedData.set(await response.json())
 
       if (response.status !== 200) {
-        downloadError = "Could not download"
+        feedDownloadError.set('Could not download')
         return
       }
     } catch (error) {
-      downloadError = "Network error"
+      feedDownloadError.set('Network error')
       console.error(error)
     }
   }
@@ -42,7 +39,7 @@
     <div class="flex items-center gap-4 p-2 ">
       <button
         on:click={refreshData}
-        use:tooltip={{ theme: "dark-border" }}
+        use:tooltip={{ theme: 'dark-border' }}
         title="Click to refresh"
         class="flex items-center gap-1 text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
       >
@@ -50,25 +47,25 @@
         Seismic
       </button>
 
-      {#if loading}
+      {#if $fetchingFeed}
         <small class="font-xs text-gray-600">fetching data...</small>
       {/if}
 
-      {#if downloadError}
-        <small class="font-xs text-red-600">{downloadError}</small>
+      {#if $feedDownloadError}
+        <small class="font-xs text-red-600">{$feedDownloadError}</small>
       {/if}
     </div>
 
-    {#if quakeData && quakeData.type === "FeatureCollection"}
+    {#if $feedData && $feedData.type === 'FeatureCollection'}
       <div class="w-full bg-white p-2 text-sm border-b">
-        {quakeData.metadata.title} - <small class="font-bold text-xs">{quakeData.metadata.count}</small> events
+        {$feedData.metadata.title} - <small class="font-bold text-xs">{$feedData.metadata.count}</small> events
       </div>
     {/if}
   </header>
 
-  {#if quakeData && quakeData.type === "FeatureCollection"}
+  {#if $feedData && $feedData.type === 'FeatureCollection'}
     <div class="w-full h-full min-h-screen bg-white">
-      {#each quakeData.features as feature}
+      {#each $feedData.features as feature}
         <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">
           <div class="w-full flex items-center gap-4">
             <div class="w-8">
