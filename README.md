@@ -1,4 +1,4 @@
-# Seismic
+# ![Seismic logo](https://user-images.githubusercontent.com/17433578/217471763-a48b2076-21bc-419d-8ba3-0341b1adb198.png) Seismic
 
 A taskbar app for displaying USGS magnitude 2.5+ earthquakes from the past day.
 
