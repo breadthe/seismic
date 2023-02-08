@@ -1,7 +1,7 @@
 # Changelog
 
 ## 0.2.0
-## Features
+### Features
 * Fetch the feed on startup.
 
 ## 0.1.0
