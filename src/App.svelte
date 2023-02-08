@@ -1,4 +1,5 @@
 <script lang="ts">
+  import appLogo from "./assets/128x128@2x.png"
   import type { FeatureCollection } from "./types"
   import { tooltip } from "./tooltip"
 
@@ -19,11 +20,9 @@
       const response = await fetch(url)
 
       quakeData = await response.json()
-      console.log(quakeData)
 
       if (response.status !== 200) {
         downloadError = "Could not download"
-        console.error("Error response from USGS", quakeData)
         return
       }
     } catch (error) {
@@ -40,8 +39,9 @@
         on:click={refreshData}
         use:tooltip={{ theme: "dark-border" }}
         title="Click to refresh"
-        class="text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
+        class="flex items-center gap-1 text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
       >
+        <img src={appLogo} alt="Seismic logo" width="24" />
         Seismic
       </button>
 
