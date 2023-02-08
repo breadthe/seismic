@@ -1,8 +1,10 @@
 <script lang="ts">
   import appLogo from './assets/128x128@2x.png'
-  import type { FeatureCollection } from './types'
+  import { onMount } from 'svelte'
   import { feedDownloadError, fetchingFeed, feedData } from './store'
   import { tooltip } from './tooltip'
+  import { fetchFeed } from './feed'
+  import { round1 } from './utils'
 
   async function refreshData() {
     fetchingFeed.set(true)
@@ -10,28 +12,9 @@
     fetchingFeed.set(false)
   }
 
-  async function fetchFeed() {
-    const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson'
-    feedDownloadError.set('')
-    try {
-      const response = await fetch(url)
-
-      feedData.set(await response.json())
-
-      if (response.status !== 200) {
-        feedDownloadError.set('Could not download')
-        return
-      }
-    } catch (error) {
-      feedDownloadError.set('Network error')
-      console.error(error)
-    }
-  }
-
-  // Round a number to 1 decimal
-  function round1(num: number): number {
-    return Math.round(num * 10) / 10
-  }
+  onMount(async () => {
+    await refreshData()
+  })
 </script>
 
 <main class="w-full overflow-hide">
