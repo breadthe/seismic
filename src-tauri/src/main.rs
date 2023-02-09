@@ -122,7 +122,7 @@ fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit").accelerator("Cmd+Q");
     let tray_menu = SystemTrayMenu::new()
         // .add_item(about)
-        .add_native_item(SystemTrayMenuItem::Separator)
+        // .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(quit);
     let system_tray = SystemTray::new().with_menu(tray_menu);
 
