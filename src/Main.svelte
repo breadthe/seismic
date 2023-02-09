@@ -1,39 +1,29 @@
 <script lang="ts">
-  import appLogo from './assets/128x128@2x.png'
-  import { onMount } from 'svelte'
-  import { feedDownloadError, fetchingFeed, feedData, lastFetchedAt } from './store'
-  import { tooltip } from './tooltip'
-  import { fetchFeed } from './feed'
-  import { round1, diffForHumans, timestampToLocalString } from './utils'
-  import SettingsButton from './lib/SettingsButton.svelte'
-
-  async function refreshData() {
-    fetchingFeed.set(true)
-    await fetchFeed()
-    setTimeout(() => {
-      fetchingFeed.set(false)
-    }, 1000)
-  }
+  import appLogo from "./assets/128x128@2x.png"
+  import { onMount } from "svelte"
+  import { feedDownloadError, fetchingFeed, feedData, refreshInterval, refreshIntervalTimer } from "./store"
+  import { tooltip } from "./tooltip"
+  import { refreshFeed, startFeedRefreshInterval } from "./feed"
+  import { round1, timestampToLocalString } from "./utils"
+  import SettingsButton from "./lib/SettingsButton.svelte"
 
   onMount(async () => {
-    await refreshData()
+    await refreshFeed()
 
-    const interval = setInterval(async () => {
-      await refreshData()
-    }, 1000 * 60) // 60 seconds
+    startFeedRefreshInterval($refreshInterval)
 
     return () => {
-      clearInterval(interval)
+      clearInterval($refreshIntervalTimer)
     }
   })
 </script>
 
 <main class="w-full overflow-hide">
   <header class="sticky top-0 z-10 bg-gray-100">
-    <div class="flex items-center justify-between gap-4 p-2 ">
+    <div class="flex items-center justify-between gap-4 px-4 py-2">
       <button
-        on:click={refreshData}
-        use:tooltip={{ theme: 'dark-border' }}
+        on:click={refreshFeed}
+        use:tooltip={{ theme: "dark-border" }}
         title="Click to refresh"
         class="flex items-center gap-1 text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
       >
@@ -56,14 +46,14 @@
       <SettingsButton />
     </div>
 
-    {#if $feedData && $feedData.type === 'FeatureCollection'}
+    {#if $feedData && $feedData.type === "FeatureCollection"}
       <div class="w-full bg-white p-2 text-sm border-b">
         {$feedData.metadata.title} - <small class="font-bold text-xs">{$feedData.metadata.count}</small> events
       </div>
     {/if}
   </header>
 
-  {#if $feedData && $feedData.type === 'FeatureCollection'}
+  {#if $feedData && $feedData.type === "FeatureCollection"}
     <div class="w-full h-full min-h-screen bg-white">
       {#each $feedData.features as feature}
         <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">

@@ -1,17 +1,11 @@
 <script lang="ts">
-  import {
-    feedDownloadError,
-    fetchingFeed,
-    feedData,
-    lastFetchedAt,
-    activeSection,
-    theme,
-    refreshInterval,
-  } from "./store"
+  import { activeSection, theme, DEFAULT_REFRESH_INTERVAL, refreshInterval, refreshIntervalTimer } from "./store"
+  import { startFeedRefreshInterval } from "./feed"
   import { tooltip } from "./tooltip"
-  import { round1, diffForHumans, timestampToLocalString, setTheme, setIsDark } from "./utils"
+  import { setTheme } from "./utils"
 
   let selectedTheme = $theme
+  let refreshIntervalInput: HTMLInputElement
 
   const preferences = {
     themes: [
@@ -22,8 +16,16 @@
   }
 
   function saveTheme() {
-    $theme = selectedTheme
+    theme.set(selectedTheme)
     setTheme($theme)
+  }
+
+  function saveRefreshInterval() {
+    refreshInterval.set(parseInt(refreshIntervalInput.value) || DEFAULT_REFRESH_INTERVAL)
+
+    // clear the feed refresh interval and start a new one
+    clearInterval($refreshIntervalTimer)
+    startFeedRefreshInterval($refreshInterval)
   }
 
   function closeSettings() {
@@ -33,28 +35,17 @@
 
 <main class="w-full overflow-hide">
   <header class="sticky top-0 z-10 bg-gray-100">
-    <div class="flex items-center justify-between gap-4 p-2 ">
+    <div class="flex items-center justify-between gap-4 px-4 py-2">
       <button
         on:click={closeSettings}
         use:tooltip={{ theme: "dark-border" }}
         title="Close Settings"
-        class="flex items-center gap-1 text-xl font-extrabold text-indigo-800"
+        class="text-2xl text-indigo-800 hover:opacity-90"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" /></svg
-        >
+        &times;
       </button>
-      <h1 class="font-extrabold text-indigo-800">
-        Settings
-      </h1>
+
+      <h1 class="font-extrabold text-indigo-800">Settings</h1>
     </div>
   </header>
 
@@ -65,7 +56,7 @@
         <h2 class="font-bold text-right">Theme</h2>
       </div>
       <div class="w-1/2">
-        <select bind:value={selectedTheme} on:change={saveTheme}>
+        <select bind:value={selectedTheme} on:change={saveTheme} class="px-2 py-1 rounded">
           {#each preferences.themes as theme}
             <option value={theme.value}>{theme.label}</option>
           {/each}
@@ -76,10 +67,22 @@
     <!-- Feed refresh interval -->
     <div class="w-full flex items-center gap-4 border-b p-2">
       <div class="w-1/2">
-        <h2 class="font-bold text-right">Feed refresh interval</h2>
+        <h2 class="font-bold text-right">Feed refresh interval (s)</h2>
       </div>
       <div class="w-1/2">
-        {$refreshInterval}s
+        <input
+          type="number"
+          min="5"
+          step="1"
+          bind:this={refreshIntervalInput}
+          value={$refreshInterval}
+          class="w-16 border px-2 py-1 rounded"
+        />
+        <button
+          on:click={saveRefreshInterval}
+          class="text-sm bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 text-white px-2 py-1 rounded"
+          >Save</button
+        >
       </div>
     </div>
   </section>

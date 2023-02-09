@@ -39,7 +39,7 @@ Note that I may not implement all of these.
 
 - <label><input type="checkbox" checked />Fetch the feed on startup.</label>
 - <label><input type="checkbox" checked />Fetch the feed periodically (60s).</label>
-- <label><input type="checkbox" />Configurable fetch frequency.</label>
+- <label><input type="checkbox" checked />Configurable feed refresh frequency.</label>
 - <label><input type="checkbox" />Desktop notifications for significant events.</label>
 - <label><input type="checkbox" />Configurable notification threshold.</label>
 - <label><input type="checkbox" />Dark mode.</label>
