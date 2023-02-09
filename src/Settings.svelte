@@ -45,7 +45,7 @@
         &times;
       </button>
 
-      <h1 class="font-extrabold text-indigo-800">Settings</h1>
+      <h1 class="font-bold">Settings</h1>
     </div>
   </header>
 
