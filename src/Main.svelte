@@ -64,7 +64,7 @@
               </span>
             </div>
             <div class="flex-1">
-              <p class="font-bold" class:text-red-600={feature.properties.mag >= 7}>
+              <p class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
                 {feature.properties.place}
               </p>
               <small class="font-xs text-gray-600">{timestampToLocalString(feature.properties.time)}</small>
