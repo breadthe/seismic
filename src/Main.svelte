@@ -44,7 +44,7 @@
 
   {#if $feedData && $feedData.type === "FeatureCollection"}
     <div class="w-full h-full min-h-screen bg-white dark:bg-gray-800">
-      {#each $feedData.features as feature}
+      {#each $feedData.features as feature (feature.properties.code)}
         <div
           class="flex items-center justify-between border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-900 p-2"
         >
