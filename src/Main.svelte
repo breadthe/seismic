@@ -21,14 +21,14 @@
       </button>
 
       {#if $fetchingFeed}
-        <small class="font-xs dark:text-gray-400">fetching data...</small>
+        <small class="text-xs text-gray-600 dark:text-gray-400">fetching data...</small>
       {/if}
 
       {#if $feedDownloadError}
-        <small class="font-xs text-red-600">{$feedDownloadError}</small>
+        <small class="text-xs text-red-600">{$feedDownloadError}</small>
       {/if}
 
-      <!-- <small class="font-xs dark:text-gray-400" title={timestampToLocalString($lastFetchedAt)}>
+      <!-- <small class="text-xs text-gray-600 dark:text-gray-400" title={timestampToLocalString($lastFetchedAt)}>
         {diffForHumans($lastFetchedAt)}
       </small> -->
 
@@ -58,12 +58,12 @@
               <p class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
                 {feature.properties.place}
               </p>
-              <small class="font-xs dark:text-gray-400">{timestampToLocalString(feature.properties.time)}</small>
+              <small class="text-xs text-gray-600 dark:text-gray-400">{timestampToLocalString(feature.properties.time)}</small>
             </div>
           </div>
 
           <div class="w-24 text-right">
-            <small class="font-xs dark:text-gray-400" title="Depth">
+            <small class="text-xs text-gray-600 dark:text-gray-400" title="Depth">
               {round1(feature.geometry.coordinates[2])} km
             </small>
           </div>
@@ -71,7 +71,7 @@
       {/each}
     </div>
   {:else}
-    <p class="mt-36 text-center dark:text-gray-400">💡 click the logo to refresh earthquake data</p>
+    <p class="mt-36 text-center text-gray-600 dark:text-gray-400">💡 click the logo to refresh earthquake data</p>
   {/if}
 </main>
 
