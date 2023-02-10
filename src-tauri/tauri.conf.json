@@ -17,6 +17,9 @@
         "scope": [
           "https://**"
         ]
+      },
+      "notification": {
+        "all": true
       }
     },
     "bundle": {

@@ -26,3 +26,10 @@ export const feedDownloadError = writable('')
 export const fetchingFeed = writable(false) // true when fetching feed
 export const feedData = writable<FeatureCollection>(undefined)
 export const lastFetchedAt = writable(0) // timestamp for last feed fetch
+
+// Save the last notified earthquake code to avoid duplicate notifications
+const storedLastNotifiedEarthquakeCode = localStorage.getItem('lastNotifiedEarthquakeCode')
+export const lastNotifiedEarthquakeCode = writable<string>(storedLastNotifiedEarthquakeCode)
+lastNotifiedEarthquakeCode.subscribe((value: string) => {
+    localStorage.setItem('lastNotifiedEarthquakeCode', value)
+})

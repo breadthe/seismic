@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+### Features
+* Desktop notifications when a new earthquake event happens.
+
 ## 0.4.0
 ### Features
 * Dark mode.
