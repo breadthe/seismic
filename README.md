@@ -40,9 +40,9 @@ Note that I may not implement all of these.
 - <label><input type="checkbox" checked />Fetch the feed on startup.</label>
 - <label><input type="checkbox" checked />Fetch the feed periodically (60s).</label>
 - <label><input type="checkbox" checked />Configurable feed refresh frequency.</label>
-- <label><input type="checkbox" />Desktop notifications for significant events.</label>
+- <label><input type="checkbox" checked />Desktop notifications for significant events (Mac only).</label>
 - <label><input type="checkbox" />Configurable notification threshold.</label>
-- <label><input type="checkbox" />Dark mode.</label>
+- <label><input type="checkbox" checked />Dark mode.</label>
 - <label><input type="checkbox" />Timestamp for last feed refresh.</label>
 - <label><input type="checkbox" />Display more event parameters from the feed (such as tsunami warning).</label>
 
