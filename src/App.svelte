@@ -1,5 +1,7 @@
 <script>
-  import { activeSection } from "./store"
+  import { onMount } from "svelte"
+  import { activeSection, refreshInterval, refreshIntervalTimer } from "./store"
+  import { refreshFeed, startFeedRefreshInterval } from "./feed"
   import Main from "./Main.svelte"
   import Settings from "./Settings.svelte"
   import Theme from "./Theme.svelte"
@@ -8,6 +10,16 @@
     { id: "Main", component: Main },
     { id: "Settings", component: Settings },
   ]
+
+  onMount(async () => {
+    await refreshFeed()
+
+    startFeedRefreshInterval($refreshInterval)
+
+    return () => {
+      clearInterval($refreshIntervalTimer)
+    }
+  })
 </script>
 
 <main id="root" class="min-h-screen bg-gray-100 dark:bg-gray-900">

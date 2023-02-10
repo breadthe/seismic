@@ -1,21 +1,11 @@
 <script lang="ts">
   import appLogo from "./assets/128x128@2x.png"
-  import { onMount } from "svelte"
   import { feedDownloadError, fetchingFeed, feedData, refreshInterval, refreshIntervalTimer } from "./store"
   import { tooltip } from "./tooltip"
   import { refreshFeed, startFeedRefreshInterval } from "./feed"
   import { round1, timestampToLocalString } from "./utils"
   import SettingsButton from "./lib/SettingsButton.svelte"
 
-  onMount(async () => {
-    await refreshFeed()
-
-    startFeedRefreshInterval($refreshInterval)
-
-    return () => {
-      clearInterval($refreshIntervalTimer)
-    }
-  })
 </script>
 
 <main class="w-full overflow-hide">
