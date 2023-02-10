@@ -1,8 +1,8 @@
-# ![Seismic logo](https://user-images.githubusercontent.com/17433578/218027389-5048f552-3568-4242-8786-51daed4f6a5b.png) Seismic
+# ![Seismic logo](https://user-images.githubusercontent.com/17433578/217473060-d8941828-8e8e-48cb-b186-c6c003597a34.png) Seismic
 
 A taskbar app for displaying USGS magnitude 2.5+ earthquakes from the past day.
 
-![Seismic screenshot](https://user-images.githubusercontent.com/17433578/217620324-88eeea39-d1b7-4a94-9924-bf5d08f17f5e.png)
+![Seismic screenshot](https://user-images.githubusercontent.com/17433578/218027389-5048f552-3568-4242-8786-51daed4f6a5b.png)
 
 It mimics the [official page](https://earthquake.usgs.gov/earthquakes/map/?extent=-89.76681,-400.78125&extent=89.76681,210.23438&map=false) on the desktop. The data is provided by the [USGS earthquake feed](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson).
 
@@ -42,7 +42,7 @@ Note that I may not implement all of these.
 - <label><input type="checkbox" checked />Configurable feed refresh frequency.</label>
 - <label><input type="checkbox" />Desktop notifications for significant events.</label>
 - <label><input type="checkbox" />Configurable notification threshold.</label>
-- <label><input type="checkbox" checked />Dark mode.</label>
+- <label><input type="checkbox" />Dark mode.</label>
 - <label><input type="checkbox" />Timestamp for last feed refresh.</label>
 - <label><input type="checkbox" />Display more event parameters from the feed (such as tsunami warning).</label>
 
