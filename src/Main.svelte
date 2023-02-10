@@ -14,7 +14,7 @@
         on:click={refreshFeed}
         use:tooltip={{ theme: "dark-border" }}
         title="Click to refresh"
-        class="flex items-center gap-1 text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 bg-clip-text text-transparent"
+        class="flex items-center gap-1 text-xl font-extrabold bg-gradient-to-br from-blue-600 to-indigo-600 hover:opacity-90 bg-clip-text text-transparent"
       >
         <img src={appLogo} alt="Seismic logo" width="24" />
         Seismic

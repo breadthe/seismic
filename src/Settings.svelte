@@ -40,7 +40,7 @@
         on:click={closeSettings}
         use:tooltip={{ theme: "dark-border" }}
         title="Close Settings"
-        class="text-2xl text-indigo-800 hover:opacity-90"
+        class="text-2xl text-blue-600 hover:opacity-90"
       >
         &times;
       </button>
@@ -84,7 +84,7 @@
         />
         <button
           on:click={saveRefreshInterval}
-          class="text-sm bg-gradient-to-br from-blue-600 to-indigo-800 hover:opacity-90 text-white px-2 py-1 rounded"
+          class="text-sm bg-gradient-to-br from-blue-600 to-indigo-600 hover:opacity-90 text-white px-2 py-1 rounded"
           >Save</button
         >
       </div>

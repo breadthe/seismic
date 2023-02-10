@@ -7,7 +7,7 @@
   }
 </script>
 
-<button on:click={openSettings} use:tooltip={{ theme: "dark-border" }} title="Settings" class="text-indigo-800">
+<button on:click={openSettings} use:tooltip={{ theme: "dark-border" }} title="Settings" class="text-blue-600">
   <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
     <path
       fill-rule="evenodd"
