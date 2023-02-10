@@ -56,7 +56,11 @@
         <h2 class="font-bold text-right">Theme</h2>
       </div>
       <div class="w-1/2">
-        <select bind:value={selectedTheme} on:change={saveTheme} class="px-2 py-1 rounded">
+        <select
+          bind:value={selectedTheme}
+          on:change={saveTheme}
+          class="bg-white appearance-none px-2 py-1 border rounded"
+        >
           {#each preferences.themes as theme}
             <option value={theme.value}>{theme.label}</option>
           {/each}
