@@ -1,11 +1,13 @@
 const config = {
-  content: ["./src/**/*.{html,js,svelte,ts}"],
+    darkMode: "class",
 
-  theme: {
-    extend: {},
-  },
+    content: ["./src/**/*.{html,js,svelte,ts}"],
 
-  plugins: [],
-};
+    theme: {
+        extend: {},
+    },
 
-module.exports = config;
+    plugins: [],
+}
+
+module.exports = config

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+### Features
+* Dark mode.
+### Fixes
+* Prevent the feed from refreshing when closing Settings.
+
 ## 0.3.0
 ### Features
 * Settings.

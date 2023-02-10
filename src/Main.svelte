@@ -1,15 +1,14 @@
 <script lang="ts">
   import appLogo from "./assets/128x128@2x.png"
-  import { feedDownloadError, fetchingFeed, feedData, refreshInterval, refreshIntervalTimer } from "./store"
+  import { feedDownloadError, fetchingFeed, feedData } from "./store"
   import { tooltip } from "./tooltip"
-  import { refreshFeed, startFeedRefreshInterval } from "./feed"
+  import { refreshFeed } from "./feed"
   import { round1, timestampToLocalString } from "./utils"
   import SettingsButton from "./lib/SettingsButton.svelte"
-
 </script>
 
 <main class="w-full overflow-hide">
-  <header class="sticky top-0 z-10 bg-gray-100">
+  <header class="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900">
     <div class="flex items-center justify-between gap-4 px-4 py-2">
       <button
         on:click={refreshFeed}
@@ -22,14 +21,14 @@
       </button>
 
       {#if $fetchingFeed}
-        <small class="font-xs text-gray-600">fetching data...</small>
+        <small class="font-xs dark:text-gray-400">fetching data...</small>
       {/if}
 
       {#if $feedDownloadError}
         <small class="font-xs text-red-600">{$feedDownloadError}</small>
       {/if}
 
-      <!-- <small class="font-xs text-gray-600" title={timestampToLocalString($lastFetchedAt)}>
+      <!-- <small class="font-xs dark:text-gray-400" title={timestampToLocalString($lastFetchedAt)}>
         {diffForHumans($lastFetchedAt)}
       </small> -->
 
@@ -37,16 +36,18 @@
     </div>
 
     {#if $feedData && $feedData.type === "FeatureCollection"}
-      <div class="w-full bg-white p-2 text-sm border-b">
+      <div class="w-full bg-white dark:bg-gray-800 p-2 text-sm border-b dark:border-gray-600">
         {$feedData.metadata.title} - <small class="font-bold text-xs">{$feedData.metadata.count}</small> events
       </div>
     {/if}
   </header>
 
   {#if $feedData && $feedData.type === "FeatureCollection"}
-    <div class="w-full h-full min-h-screen bg-white">
+    <div class="w-full h-full min-h-screen bg-white dark:bg-gray-800">
       {#each $feedData.features as feature}
-        <div class="flex items-center justify-between border-b hover:bg-gray-100 p-2">
+        <div
+          class="flex items-center justify-between border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-900 p-2"
+        >
           <div class="w-full flex items-center gap-4">
             <div class="w-8 text-center">
               <span class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
@@ -57,12 +58,12 @@
               <p class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
                 {feature.properties.place}
               </p>
-              <small class="font-xs text-gray-600">{timestampToLocalString(feature.properties.time)}</small>
+              <small class="font-xs dark:text-gray-400">{timestampToLocalString(feature.properties.time)}</small>
             </div>
           </div>
 
           <div class="w-24 text-right">
-            <small class="font-xs text-gray-600" title="Depth">
+            <small class="font-xs dark:text-gray-400" title="Depth">
               {round1(feature.geometry.coordinates[2])} km
             </small>
           </div>
@@ -70,7 +71,7 @@
       {/each}
     </div>
   {:else}
-    <p class="mt-36 text-center text-gray-600">💡 click the logo to refresh earthquake data</p>
+    <p class="mt-36 text-center dark:text-gray-400">💡 click the logo to refresh earthquake data</p>
   {/if}
 </main>
 

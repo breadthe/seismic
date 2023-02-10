@@ -34,7 +34,7 @@
 </script>
 
 <main class="w-full overflow-hide">
-  <header class="sticky top-0 z-10 bg-gray-100">
+  <header class="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900">
     <div class="flex items-center justify-between gap-4 px-4 py-2">
       <button
         on:click={closeSettings}
@@ -49,9 +49,9 @@
     </div>
   </header>
 
-  <section class="w-full h-full bg-white">
+  <section class="w-full h-full bg-white dark:bg-gray-800">
     <!-- Theme -->
-    <div class="w-full flex items-center gap-4 border-b p-2">
+    <div class="w-full flex items-center gap-4 border-b dark:border-gray-600 p-2">
       <div class="w-1/2">
         <h2 class="font-bold text-right">Theme</h2>
       </div>
@@ -59,7 +59,7 @@
         <select
           bind:value={selectedTheme}
           on:change={saveTheme}
-          class="bg-white appearance-none px-2 py-1 border rounded"
+          class="bg-white dark:bg-gray-800 appearance-none px-2 py-1 border dark:border-gray-600 rounded"
         >
           {#each preferences.themes as theme}
             <option value={theme.value}>{theme.label}</option>
@@ -69,7 +69,7 @@
     </div>
 
     <!-- Feed refresh interval -->
-    <div class="w-full flex items-center gap-4 border-b p-2">
+    <div class="w-full flex items-center gap-4 border-b dark:border-gray-600 p-2">
       <div class="w-1/2">
         <h2 class="font-bold text-right">Feed refresh interval (s)</h2>
       </div>
@@ -80,7 +80,7 @@
           step="1"
           bind:this={refreshIntervalInput}
           value={$refreshInterval}
-          class="w-16 border px-2 py-1 rounded"
+          class="w-16 bg-white dark:bg-gray-800 border dark:border-gray-600 px-2 py-1 rounded"
         />
         <button
           on:click={saveRefreshInterval}
