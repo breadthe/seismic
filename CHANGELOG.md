@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+### Features
+* Display the app version in Settings.
+
 ## 0.6.0
 ### Features
 * Configurable notification threshold.

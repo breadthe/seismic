@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte"
-  import { activeSection, refreshInterval, refreshIntervalTimer } from "./store"
+  import { getVersion, getName } from '@tauri-apps/api/app';
+  import { appVersion, appName, activeSection, refreshInterval, refreshIntervalTimer } from "./store"
   import { refreshFeed, startFeedRefreshInterval } from "./feed"
   import Main from "./Main.svelte"
   import Settings from "./Settings.svelte"
@@ -12,6 +13,9 @@
   ]
 
   onMount(async () => {
+    appVersion.set(await getVersion())
+    appName.set(await getName())
+
     await refreshFeed()
 
     startFeedRefreshInterval($refreshInterval)

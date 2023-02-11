@@ -1,5 +1,7 @@
 <script lang="ts">
   import {
+    appVersion,
+    appName,
     activeSection,
     theme,
     DEFAULT_REFRESH_INTERVAL,
@@ -129,6 +131,11 @@
           class="text-sm bg-gradient-to-br from-blue-600 to-indigo-600 hover:opacity-90 disabled:opacity-50 text-white px-2 py-1 disabled:cursor-not-allowed rounded"
           {disabled}>Save</button
         >
+      </div>
+
+      <!-- App version -->
+      <div class="p-2 text-center text-xs text-gray-600 dark:text-gray-400">
+        {$appName} v{$appVersion}
       </div>
     </div>
   </section>

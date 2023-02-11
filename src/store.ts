@@ -4,6 +4,10 @@ import type { FeatureCollection } from './types'
 // Page (Main, Settings)
 export const activeSection = writable('Main');
 
+// App version + name
+export const appVersion = writable<string|null>(null);
+export const appName = writable<string|null>(null);
+
 // Theme: dark, light, automatic
 const storedTheme = localStorage.getItem('theme') || 'light'
 export const theme = writable(storedTheme ? storedTheme : 'light')
