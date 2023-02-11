@@ -8,6 +8,8 @@ It mimics the [official page](https://earthquake.usgs.gov/earthquakes/map/?exten
 
 Seismic is offered free of charge, and is open-source.
 
+Download the latest release for your platform [here](https://github.com/breadthe/seismic/releases).
+
 [](#features)
 
 ## Features
