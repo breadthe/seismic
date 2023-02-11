@@ -3,8 +3,8 @@
 ## 0.6.0
 ### Features
 * Configurable notification threshold.
+* Open the event location in geojson.io.
 * Improved app logo.
-
 
 ## 0.5.0
 ### Features
