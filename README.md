@@ -2,11 +2,23 @@
 
 A taskbar app for displaying USGS magnitude 2.5+ earthquakes from the past day.
 
-![Seismic screenshot](https://user-images.githubusercontent.com/17433578/218229169-6b451b87-5d85-4936-8404-6923bbbb8912.png)
+![Seismic screenshot](https://user-images.githubusercontent.com/17433578/218282548-57895a1d-429c-4068-81d3-889448513c98.png)
 
 It mimics the [official page](https://earthquake.usgs.gov/earthquakes/map/?extent=-89.76681,-400.78125&extent=89.76681,210.23438&map=false) on the desktop. The data is provided by the [USGS earthquake feed](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson).
 
 Seismic is offered free of charge, and is open-source.
+
+[](#features)
+
+## Features
+
+- Fetch the feed on startup.
+- Fetch the feed periodically (60s)
+- Configurable feed refresh frequency.
+- Desktop notifications for significant events (Mac only)
+- Configurable notification threshold.
+- Dark mode.
+- Open location in geojson.io map.
 
 ## Stack
 
@@ -35,15 +47,8 @@ cargo tauri build
 
 ## Wishlist
 
-Note that I may not implement all of these.
+All the [features](#features) intended for v1.0 are complete. The following are potential embellishments that may or may not happen.
 
-- [x] Fetch the feed on startup.
-- [x] Fetch the feed periodically (60s)
-- [x] Configurable feed refresh frequency.
-- [x] Desktop notifications for significant events (Mac only)
-- [x] Configurable notification threshold.
-- [x] Dark mode.
-- [x] Open location in geojson.io map.
 - [ ] Optional color coding of events according to severity.
 - [ ] Timestamp for last feed refresh.
 - [ ] Display more event parameters from the feed (such as tsunami warning).
@@ -52,7 +57,7 @@ Note that I may not implement all of these.
 
 ## Known issues
 
-- I have only tested this app on Mac. While I can make GitHub Actions generate builds for Windows and Linux, I can't guarantee they will work properly, especially the taskbar stuff. Feel free to contribute to those builds.
+- I have only tested this app on Mac (Intel). While there are builds for all platforms (Mac/Windows/Linux), I can't guarantee the latter two will work properly, especially the behavior around the taskbar and desktop notification functionality. Feel free to contribute to those builds.
 
 ## Contributing
 
@@ -60,11 +65,11 @@ Contributing is welcome, but I keep in mind that I might be slow to respond.
 
 Contribution priority:
 
-- [known issues](#known_issues)
-- bug fixes
-- platform-specific builds (make it work great on Windows and Linux!)
-- features on the [wishlist](#wishlist)
-- everything else (including new ideas)
+- [known issues](#known_issues).
+- bug fixes (open an issue first, explaining the problem).
+- platform-specific builds (make it work great on Windows and Linux!).
+- features on the [wishlist](#wishlist).
+- everything else (including new ideas).
 
 ## License
 
