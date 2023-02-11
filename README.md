@@ -1,8 +1,8 @@
-# ![Seismic logo](https://user-images.githubusercontent.com/17433578/217473060-d8941828-8e8e-48cb-b186-c6c003597a34.png) Seismic
+# ![Seismic logo](https://user-images.githubusercontent.com/17433578/218228952-b6986241-6f32-4c31-8f14-d4069de78b01.png) Seismic
 
 A taskbar app for displaying USGS magnitude 2.5+ earthquakes from the past day.
 
-![Seismic screenshot](https://user-images.githubusercontent.com/17433578/218027389-5048f552-3568-4242-8786-51daed4f6a5b.png)
+![Seismic screenshot](https://user-images.githubusercontent.com/17433578/218229169-6b451b87-5d85-4936-8404-6923bbbb8912.png)
 
 It mimics the [official page](https://earthquake.usgs.gov/earthquakes/map/?extent=-89.76681,-400.78125&extent=89.76681,210.23438&map=false) on the desktop. The data is provided by the [USGS earthquake feed](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson).
 
