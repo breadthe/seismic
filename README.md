@@ -37,22 +37,21 @@ cargo tauri build
 
 Note that I may not implement all of these.
 
-- <label><input type="checkbox" checked />Fetch the feed on startup.</label>
-- <label><input type="checkbox" checked />Fetch the feed periodically (60s).</label>
-- <label><input type="checkbox" checked />Configurable feed refresh frequency.</label>
-- <label><input type="checkbox" checked />Desktop notifications for significant events (Mac only).</label>
-- <label><input type="checkbox" checked />Configurable notification threshold.</label>
-- <label><input type="checkbox" checked />Dark mode.</label>
-- <label><input type="checkbox" checked />Open location in geojson.io map.</label>
-- <label><input type="checkbox" />Optional color coding of events according to severity.</label>
-- <label><input type="checkbox" />Timestamp for last feed refresh.</label>
-- <label><input type="checkbox" />Display more event parameters from the feed (such as tsunami warning).</label>
+- [x] Fetch the feed on startup.
+- [x] Fetch the feed periodically (60s)
+- [x] Configurable feed refresh frequency.
+- [x] Desktop notifications for significant events (Mac only)
+- [x] Configurable notification threshold.
+- [x] Dark mode.
+- [x] Open location in geojson.io map.
+- [ ] Optional color coding of events according to severity.
+- [ ] Timestamp for last feed refresh.
+- [ ] Display more event parameters from the feed (such as tsunami warning).
 
 [](#known_issues)
 
 ## Known issues
 
-- Currently the GitHub action fails to build with an incomprehensible error.
 - I have only tested this app on Mac. While I can make GitHub Actions generate builds for Windows and Linux, I can't guarantee they will work properly, especially the taskbar stuff. Feel free to contribute to those builds.
 
 ## Contributing
