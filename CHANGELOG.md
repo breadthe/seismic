@@ -5,6 +5,8 @@
 * Configurable notification threshold.
 * Open the event location in geojson.io.
 * Improved app logo.
+### Fixes
+* Fixed GitHub workflow for publishing Mac/Windows/Linux releases.
 
 ## 0.5.0
 ### Features
