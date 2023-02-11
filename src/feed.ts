@@ -20,7 +20,9 @@ export const fetchFeed = async function () {
         feedData.set(json)
 
         // Trigger a desktop notification with the new earthquake if the magnitude is >= than the threshold
-        if (json.features[0].properties.mag >= (localStorage.getItem('magnitudeNotificationThreshold') || DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD)) {
+        const magnitudeNotificationThreshold = parseInt(localStorage.getItem('magnitudeNotificationThreshold'), 10) || DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD
+        if (parseInt(json.features[0].properties.mag, 10) >= magnitudeNotificationThreshold) {
+            localStorage.setItem('test-mag', json.features[0].properties.mag)
             notifyDesktop(json.features[0])
         }
 
