@@ -1,4 +1,4 @@
-import { readable, writable } from 'svelte/store'
+import { writable } from 'svelte/store'
 import type { FeatureCollection } from './types'
 
 // Page (Main, Settings)
@@ -12,11 +12,19 @@ theme.subscribe((value: string) => {
 })
 
 // Feed refresh interval, default 60 seconds
-export const DEFAULT_REFRESH_INTERVAL = 60
-const storedRefreshInterval = parseInt(localStorage.getItem('refreshInterval'), 10) || DEFAULT_REFRESH_INTERVAL
+export const DEFAULT_REFRESH_INTERVAL: number = 60
+const storedRefreshInterval: number = parseInt(localStorage.getItem('refreshInterval'), 10) || DEFAULT_REFRESH_INTERVAL
 export const refreshInterval = writable<number>(storedRefreshInterval ? storedRefreshInterval : DEFAULT_REFRESH_INTERVAL)
 refreshInterval.subscribe((value: number) => {
     localStorage.setItem('refreshInterval', value.toString())
+})
+
+// Feed refresh interval, default 60 seconds
+export const DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD: number = 2.5
+const storedMagnitudeNotificationThreshold: number = parseFloat(localStorage.getItem('magnitudeNotificationThreshold')) || DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD
+export const magnitudeNotificationThreshold = writable<number>(storedMagnitudeNotificationThreshold ? storedMagnitudeNotificationThreshold : DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD)
+magnitudeNotificationThreshold.subscribe((value: number) => {
+    localStorage.setItem('magnitudeNotificationThreshold', value.toString())
 })
 
 // Refresh interval timer

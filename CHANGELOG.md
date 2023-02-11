@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0
+### Features
+* Configurable notification threshold.
+* Improved app logo.
+
+
 ## 0.5.0
 ### Features
 * Desktop notifications when a new earthquake event happens.

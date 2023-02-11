@@ -1,4 +1,4 @@
-import { feedDownloadError, fetchingFeed, feedData, lastFetchedAt, refreshIntervalTimer, lastNotifiedEarthquakeCode } from './store'
+import { feedDownloadError, fetchingFeed, feedData, lastFetchedAt, refreshIntervalTimer, lastNotifiedEarthquakeCode, DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD } from './store'
 import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification'
 import { round1, timestampToLocalString } from "./utils"
 import type { Feature } from './types'
@@ -19,8 +19,10 @@ export const fetchFeed = async function () {
         const json = await response.json()
         feedData.set(json)
 
-        // Trigger a desktop notification with the new earthquake
-        notifyDesktop(json.features[0])
+        // Trigger a desktop notification with the new earthquake if the magnitude is >= than the threshold
+        if (json.features[0].properties.mag >= (localStorage.getItem('magnitudeNotificationThreshold') || DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD)) {
+            notifyDesktop(json.features[0])
+        }
 
         lastFetchedAt.set(Date.now())
     } catch (error) {

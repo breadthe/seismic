@@ -1,11 +1,25 @@
 <script lang="ts">
-  import { activeSection, theme, DEFAULT_REFRESH_INTERVAL, refreshInterval, refreshIntervalTimer } from "./store"
+  import {
+    activeSection,
+    theme,
+    DEFAULT_REFRESH_INTERVAL,
+    refreshInterval,
+    refreshIntervalTimer,
+    DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD,
+    magnitudeNotificationThreshold,
+  } from "./store"
   import { startFeedRefreshInterval } from "./feed"
   import { tooltip } from "./tooltip"
   import { setTheme } from "./utils"
 
   let selectedTheme = $theme
-  let refreshIntervalInput: HTMLInputElement
+
+  $: newRefreshInterval = $refreshInterval
+  $: newMagnitudeNotificationThreshold = $magnitudeNotificationThreshold
+
+  $: refreshIntervalChanged = newRefreshInterval !== $refreshInterval
+  $: magnitudeNotificationThresholdChanged = newMagnitudeNotificationThreshold !== $magnitudeNotificationThreshold
+  $: disabled = !refreshIntervalChanged && !magnitudeNotificationThresholdChanged
 
   const preferences = {
     themes: [
@@ -20,12 +34,18 @@
     setTheme($theme)
   }
 
-  function saveRefreshInterval() {
-    refreshInterval.set(parseInt(refreshIntervalInput.value) || DEFAULT_REFRESH_INTERVAL)
+  function saveSettings() {
+    if (refreshIntervalChanged) {
+      refreshInterval.set(newRefreshInterval || DEFAULT_REFRESH_INTERVAL)
 
-    // clear the feed refresh interval and start a new one
-    clearInterval($refreshIntervalTimer)
-    startFeedRefreshInterval($refreshInterval)
+      // clear the feed refresh interval and start a new one
+      clearInterval($refreshIntervalTimer)
+      startFeedRefreshInterval($refreshInterval)
+    }
+
+    if (magnitudeNotificationThresholdChanged) {
+      magnitudeNotificationThreshold.set(newMagnitudeNotificationThreshold || DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD)
+    }
   }
 
   function closeSettings() {
@@ -49,11 +69,11 @@
     </div>
   </header>
 
-  <section class="w-full h-full bg-white dark:bg-gray-800">
+  <section class="w-full h-full flex flex-col gap-4">
     <!-- Theme -->
-    <div class="w-full flex items-center gap-4 border-b dark:border-gray-600 p-2">
+    <div class="mx-8 flex items-center gap-4 p-2 bg-white dark:bg-gray-800 rounded-lg">
       <div class="w-1/2">
-        <h2 class="font-bold text-right">Theme</h2>
+        <h2 class="text-right">Theme</h2>
       </div>
       <div class="w-1/2">
         <select
@@ -68,24 +88,46 @@
       </div>
     </div>
 
-    <!-- Feed refresh interval -->
-    <div class="w-full flex items-center gap-4 border-b dark:border-gray-600 p-2">
-      <div class="w-1/2">
-        <h2 class="font-bold text-right">Feed refresh interval (s)</h2>
+    <!-- Feed refresh interval + Magnitude notification threshold -->
+    <div class="mx-8 rounded-lg">
+      <!-- Feed refresh interval -->
+      <div class="flex items-center gap-4 p-2 bg-white dark:bg-gray-800 rounded-t-lg">
+        <div class="w-1/2">
+          <h2 class="text-right">Feed refresh interval (s)</h2>
+        </div>
+        <div class="w-1/2">
+          <input
+            type="number"
+            min="5"
+            step="1"
+            bind:value={newRefreshInterval}
+            class="w-16 bg-white dark:bg-gray-800 border dark:border-gray-600 px-2 py-1 rounded"
+          />
+        </div>
       </div>
-      <div class="w-1/2">
-        <input
-          type="number"
-          min="5"
-          step="1"
-          bind:this={refreshIntervalInput}
-          value={$refreshInterval}
-          class="w-16 bg-white dark:bg-gray-800 border dark:border-gray-600 px-2 py-1 rounded"
-        />
+
+      <!-- Magnitude notification threshold -->
+      <div class="flex items-center gap-4 p-2 bg-white dark:bg-gray-800">
+        <div class="w-1/2">
+          <h2 class="text-right">Magnitude notification threshold</h2>
+        </div>
+        <div class="w-1/2">
+          <input
+            type="number"
+            min="2.5"
+            max="10"
+            step="0.1"
+            bind:value={newMagnitudeNotificationThreshold}
+            class="w-16 bg-white dark:bg-gray-800 border dark:border-gray-600 px-2 py-1 rounded"
+          />
+        </div>
+      </div>
+
+      <div class="text-right p-2 bg-white dark:bg-gray-800 border-t dark:border-gray-600 rounded-b-lg">
         <button
-          on:click={saveRefreshInterval}
-          class="text-sm bg-gradient-to-br from-blue-600 to-indigo-600 hover:opacity-90 text-white px-2 py-1 rounded"
-          >Save</button
+          on:click={saveSettings}
+          class="text-sm bg-gradient-to-br from-blue-600 to-indigo-600 hover:opacity-90 disabled:opacity-50 text-white px-2 py-1 disabled:cursor-not-allowed rounded"
+          {disabled}>Save</button
         >
       </div>
     </div>
