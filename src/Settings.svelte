@@ -9,19 +9,23 @@
     refreshIntervalTimer,
     DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD,
     magnitudeNotificationThreshold,
+    magnitudeColorScale,
   } from "./store"
   import { startFeedRefreshInterval } from "./feed"
   import { tooltip } from "./tooltip"
   import { setTheme } from "./utils"
+  import { MagnitudeColor } from "./types"
 
   let selectedTheme = $theme
 
   $: newRefreshInterval = $refreshInterval
   $: newMagnitudeNotificationThreshold = $magnitudeNotificationThreshold
+  $: newMagnitudeColorScale = $magnitudeColorScale
 
   $: refreshIntervalChanged = newRefreshInterval !== $refreshInterval
   $: magnitudeNotificationThresholdChanged = newMagnitudeNotificationThreshold !== $magnitudeNotificationThreshold
-  $: disabled = !refreshIntervalChanged && !magnitudeNotificationThresholdChanged
+  $: magnitudeColorScaleChanged = newMagnitudeColorScale !== $magnitudeColorScale
+  $: disabled = !refreshIntervalChanged && !magnitudeNotificationThresholdChanged && !magnitudeColorScaleChanged
 
   const preferences = {
     themes: [
@@ -47,6 +51,10 @@
 
     if (magnitudeNotificationThresholdChanged) {
       magnitudeNotificationThreshold.set(newMagnitudeNotificationThreshold || DEFAULT_MAGNITUDE_NOTIFICATION_THRESHOLD)
+    }
+
+    if (magnitudeColorScaleChanged) {
+      magnitudeColorScale.set(newMagnitudeColorScale)
     }
   }
 
@@ -125,6 +133,35 @@
         </div>
       </div>
 
+      <!-- Color scale -->
+      <div class="flex items-center gap-4 p-2 bg-white dark:bg-gray-800">
+        <div class="w-1/2">
+          <h2 class="text-right">Magnitude color scale</h2>
+        </div>
+        <div class="w-1/2">
+          <input
+            type="checkbox"
+            value="1"
+            bind:checked={newMagnitudeColorScale}
+            class="appearance-none w-6 h-6 rounded bg-white dark:bg-gray-800 border dark:border-gray-600 checked:bg-blue-600 dark:checked:bg-blue-600 checked:border-transparent"
+          />
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center pb-4 bg-white dark:bg-gray-800">
+        {#each Object.keys(MagnitudeColor) as magnitude, i (magnitude)}
+          {@const totalMagnitudes = Object.keys(MagnitudeColor).length}
+          <div
+            class={`flex items-center justify-center w-6 h-6 text-xs text-white ${MagnitudeColor[magnitude]}`}
+            class:rounded-l={i === 0}
+            class:rounded-r={i + 1 === totalMagnitudes}
+          >
+            {magnitude.replace("m-", "")}
+          </div>
+        {/each}
+      </div>
+
+      <!-- Save settings -->
       <div class="text-right p-2 bg-white dark:bg-gray-800 border-t dark:border-gray-600 rounded-b-lg">
         <button
           on:click={saveSettings}

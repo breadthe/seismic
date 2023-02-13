@@ -31,6 +31,13 @@ magnitudeNotificationThreshold.subscribe((value: number) => {
     localStorage.setItem('magnitudeNotificationThreshold', value.toString())
 })
 
+// Magnitude color scale
+const storedMagnitudeColorScale = localStorage.getItem('magnitudeColorScale') === '1' ? '1' : '0'
+export const magnitudeColorScale = writable<boolean>(storedMagnitudeColorScale  === '1' ? true : false)
+magnitudeColorScale.subscribe((value: boolean) => {
+    localStorage.setItem('magnitudeColorScale', value ? '1' : '0')
+})
+
 // Refresh interval timer
 export const refreshIntervalTimer = writable<NodeJS.Timeout>(undefined)
 
