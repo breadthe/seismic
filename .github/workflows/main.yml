@@ -14,6 +14,8 @@ jobs:
         # platform: [macos-latest, ubuntu-latest, windows-latest]
         platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
+    env:
+        TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -95,7 +97,6 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
         with:
             upload_url: ${{steps.get_upload_url.outputs.url}}
             asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
@@ -108,7 +109,6 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
         with:
             upload_url: ${{steps.get_upload_url.outputs.url}}
             asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-windows-x64.msi
@@ -121,7 +121,6 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
         with:
             upload_url: ${{steps.get_upload_url.outputs.url}}
             asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-linux-x64.appimage
@@ -132,7 +131,6 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
         with:
             upload_url: ${{steps.get_upload_url.outputs.url}}
             asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-linux-x64.deb
