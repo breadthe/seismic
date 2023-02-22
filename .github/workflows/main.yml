@@ -92,18 +92,27 @@ jobs:
             prop_path: version
 
       # Mac
+      # - name: Upload the mac installer asset
+      #   if: runner.os == 'macOS'
+      #   uses: actions/upload-release-asset@v1.0.2
+      #   env:
+      #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #       node-version: 16
+      #       upload_url: ${{steps.get_upload_url.outputs.url}}
+      #       asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+      #       asset_name: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+      #       asset_content_type: application/octet-stream
+
+      # Mac
       - name: Upload the mac installer asset
         if: runner.os == 'macOS'
-        # uses: softprops/action-gh-release@v1
-        uses: actions/upload-release-asset@v1.0.2
+        uses: softprops/action-gh-release@v1
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            node-version: 16
-            upload_url: ${{steps.get_upload_url.outputs.url}}
-            asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
-            asset_name: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
-            asset_content_type: application/octet-stream
+            files: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+            body_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
 
       # Windows
       - name: Upload the windows installer asset
