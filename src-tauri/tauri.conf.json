@@ -27,7 +27,7 @@
         },
         "bundle": {
             "active": true,
-            "category": "DeveloperTool",
+            "category": "Utility",
             "copyright": "",
             "deb": {
                 "depends": []
