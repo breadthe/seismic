@@ -12,8 +12,16 @@ jobs:
       matrix:
         # ubuntu-latest = ubuntu-20.04
         # platform: [macos-latest, ubuntu-latest, windows-latest]
-        platform: [macos-latest]
-    runs-on: ${{ matrix.platform }}
+        # platform: [macos-latest]
+        include:
+          - os: macos-latest
+            name: macos
+          # - os: ubuntu-latest
+          #   name: linux
+          # - os: windows-latest
+          #   name: windows
+    # runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
     env:
         TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
     steps:
@@ -21,7 +29,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-latest'
+        # if: matrix.platform == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-latest'
         # You can remove libayatana-appindicator3-dev if you don't use the system tray feature.
         run: |
           sudo apt-get update
@@ -149,11 +158,11 @@ jobs:
             asset_content_type: application/octet-stream
 
       - name: Hash
-        run: cat ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-${{matrix.NAME}}-x64.sig
+        run: cat ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-${{matrix.name}}-x64.sig
         shell: bash
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-            name: seismic-${{matrix.NAME}}-x64-installer-portable
+            name: seismic-${{matrix.name}}-x64-installer-portable
             path: src-tauri/target/release
