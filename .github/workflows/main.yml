@@ -122,8 +122,9 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            files: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
-            body_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+            # files: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+            files: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+            # body_path: ${{ github.workspace }}-CHANGELOG.txt
 
       # Windows
       - name: Upload the windows installer asset
