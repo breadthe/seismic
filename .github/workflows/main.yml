@@ -106,9 +106,7 @@ jobs:
 
       # Mac
       - name: Upload the mac installer asset
-        if:
-          runner.os == 'macOS'
-          startsWith(github.ref, 'refs/tags/')
+        if: ${{ runner.os == 'macOS' && startsWith(github.ref, 'refs/tags/') }}
         uses: softprops/action-gh-release@v1
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
