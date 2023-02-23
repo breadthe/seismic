@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { feedData } from "./store"
+  import { feedData, magnitudeColorScale } from "./store"
   import { tooltip } from "./tooltip"
-  import { round1, timestampToLocalString } from "./utils"
+  import { round1, timestampToLocalString, magBgColor } from "./utils"
   import Header from "./Header.svelte"
 </script>
 
@@ -12,13 +12,19 @@
     <div class="w-full h-full min-h-screen bg-white dark:bg-gray-800">
       {#each $feedData.features as feature (feature.properties.code)}
         <div
-          class="flex items-center justify-between border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-900 py-1"
+          class={`flex items-center justify-between border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-900 py-1 ${
+            $magnitudeColorScale ? `${magBgColor(feature.properties.mag)} bg-opacity-20` : ""
+          }`}
         >
           <!-- Magnitude -->
-          <div class="px-4">
-            <span class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}>
-              {round1(feature.properties.mag)}
-            </span>
+          <div
+            class={`mx-2 w-8 h-8 flex items-center justify-center rounded-lg text-sm ${
+              $magnitudeColorScale ? `${magBgColor(feature.properties.mag)} text-white` : ""
+            }`}
+            class:font-bold={feature.properties.mag >= 4.5 && !$magnitudeColorScale}
+            class:text-red-600={feature.properties.mag >= 7 && !$magnitudeColorScale}
+          >
+            {round1(feature.properties.mag)}
           </div>
 
           <!-- Location -->

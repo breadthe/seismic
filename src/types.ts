@@ -53,3 +53,14 @@ export interface Geometry {
     type: 'Point';
     coordinates: number[]; // [36.4567, 38.0154, 10]
 }
+
+export enum MagnitudeColor {
+    'm-2.5' = 'bg-teal-600',
+    'm-3' = 'bg-green-600',
+    'm-4' = 'bg-yellow-500',
+    'm-5' = 'bg-orange-400',
+    'm-6' = 'bg-orange-600',
+    'm-7' = 'bg-red-600',
+    'm-8' = 'bg-red-700',
+    'm-9' = 'bg-red-800',
+}
