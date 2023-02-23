@@ -2,7 +2,6 @@ name: Release
 on:
   push:
     tags:
-      # - 'v[0-9]+.[0-9]+.[0-9]+'
       - 'v*.*.*'
   workflow_dispatch:
 
@@ -53,7 +52,7 @@ jobs:
 
       - name: Install app dependencies and build web
         # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
-        run: npm install # yarn && yarn build
+        run: npm ci && npm run build # yarn && yarn build (npm ci = Clean Install)
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
@@ -102,19 +101,6 @@ jobs:
             prop_path: version
 
       # Mac
-      # - name: Upload the mac installer asset
-      #   if: runner.os == 'macOS'
-      #   uses: actions/upload-release-asset@v1.0.2
-      #   env:
-      #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #       node-version: 16
-      #       upload_url: ${{steps.get_upload_url.outputs.url}}
-      #       asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
-      #       asset_name: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
-      #       asset_content_type: application/octet-stream
-
-      # Mac
       - name: Upload the mac installer asset
         # if: ${{ runner.os == 'macOS' && startsWith(github.ref, 'refs/tags/') }}
         if: runner.os == 'macOS'
@@ -123,7 +109,9 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             # files: seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
-            files: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+            files: |
+              ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-macos-x64.dmg
+              ./src-tauri/target/release/upload/silicon/seismic-${{steps.version.outputs.prop}}-macos-aarch64.dmg
             # body_path: ${{ github.workspace }}-CHANGELOG.txt
 
       # Windows
