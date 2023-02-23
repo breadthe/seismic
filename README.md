@@ -21,6 +21,7 @@ Download the latest release for your platform [here](https://github.com/breadthe
 - Configurable notification threshold.
 - Dark mode.
 - Open location in geojson.io map.
+- Optional color coding of events according to severity.
 
 ## Stack
 
@@ -51,7 +52,6 @@ cargo tauri build
 
 All the [features](#features) intended for v1.0 are complete. The following are potential embellishments that may or may not happen.
 
-- [ ] Optional color coding of events according to severity.
 - [ ] Timestamp for last feed refresh.
 - [ ] Display more event parameters from the feed (such as tsunami warning).
 
