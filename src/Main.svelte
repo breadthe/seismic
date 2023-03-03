@@ -33,6 +33,38 @@
               <span class:font-bold={feature.properties.mag >= 4.5} class:text-red-600={feature.properties.mag >= 7}
                 >{feature.properties.place}</span
               >
+
+              <!-- usgs.gov link -->
+              {#if feature.properties.url.length}
+                <a
+                  href={feature.properties.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="text-blue-600"
+                  title="View on earthquake.usgs.gov"
+                  use:tooltip={{ theme: "dark-border" }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line
+                      x1="12"
+                      y1="8"
+                      x2="12"
+                      y2="8"
+                    /></svg
+                  >
+                </a>
+              {/if}
+
+              <!-- geojson.io link -->
               <a
                 href={`http://geojson.io/#data=data:application/json,${encodeURIComponent(JSON.stringify(feature))}`}
                 target="_blank"
@@ -55,6 +87,7 @@
                 >
               </a>
 
+              <!-- tsunami -->
               {#if feature.properties.tsunami === 1}
                 <span
                   class="text-blue-600"
