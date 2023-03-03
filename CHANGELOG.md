@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0
+### Features
+* Tsunami warning indicator.
+* Open event details on [earthquake.usgs.gov](https://earthquake.usgs.gov/).
+* Windows & Linux builds (untested).
+
+## 1.1.0
+### Features
+* Optional color-coded magnitude scale that can be toggled in Settings.
+
 ## 1.0.0
 ### Features
 * Display the app version in Settings.

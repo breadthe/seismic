@@ -20,8 +20,10 @@ Download the latest release for your platform [here](https://github.com/breadthe
 - Desktop notifications for significant events (Mac only)
 - Configurable notification threshold.
 - Dark mode.
-- Open location in geojson.io map.
+- Open location in [geojson.io](geojson.io) map.
+- Open event details on [earthquake.usgs.gov](https://earthquake.usgs.gov/).
 - Optional color coding of events according to severity.
+- Tsunami warning indicator.
 
 ## Stack
 
@@ -53,7 +55,6 @@ cargo tauri build
 All the [features](#features) intended for v1.0 are complete. The following are potential embellishments that may or may not happen.
 
 - [ ] Timestamp for last feed refresh.
-- [ ] Display more event parameters from the feed (such as tsunami warning).
 
 [](#known_issues)
 

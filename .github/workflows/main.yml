@@ -16,10 +16,10 @@ jobs:
         include:
           - os: macos-latest
             name: macos
-          # - os: ubuntu-latest
-          #   name: linux
-          # - os: windows-latest
-          #   name: windows
+          - os: ubuntu-latest
+            name: linux
+          - os: windows-latest
+            name: windows
     # runs-on: ${{ matrix.platform }}
     runs-on: ${{ matrix.os }}
     env:
