@@ -121,10 +121,11 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            upload_url: ${{steps.get_upload_url.outputs.url}}
-            asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-windows-x64.msi
-            asset_name: seismic-${{steps.version.outputs.prop}}-windows-x64.msi
-            asset_content_type: application/octet-stream
+            # upload_url: ${{steps.get_upload_url.outputs.url}}
+            # asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-windows-x64.zip
+            # asset_name: seismic-${{steps.version.outputs.prop}}-windows-x64.zip
+            # asset_content_type: application/octet-stream
+            files: ./src-tauri/target/release/upload/seismic_${{steps.version.outputs.prop}}_x64_en-US.msi.zip
 
       # Linux
       - name: Upload the linux installer asset
@@ -133,20 +134,22 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            upload_url: ${{steps.get_upload_url.outputs.url}}
-            asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-linux-x64.appimage
-            asset_name: seismic-${{steps.version.outputs.prop}}-linux-x64.appimage
-            asset_content_type: application/octet-stream
+            # upload_url: ${{steps.get_upload_url.outputs.url}}
+            # asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-linux-x64.appimage
+            # asset_name: seismic-${{steps.version.outputs.prop}}-linux-x64.appimage
+            # asset_content_type: application/octet-stream
+            files: ./src-tauri/target/release/upload/seismic_${{steps.version.outputs.prop}}_amd64.AppImage.tar.gz
       - name: Upload the linux installer asset
         if: runner.os == 'Linux'
         uses: softprops/action-gh-release@v1
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            upload_url: ${{steps.get_upload_url.outputs.url}}
-            asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-linux-x64.deb
-            asset_name: seismic-${{steps.version.outputs.prop}}-linux-x64.deb
-            asset_content_type: application/octet-stream
+            # upload_url: ${{steps.get_upload_url.outputs.url}}
+            # asset_path: ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-linux-x64.deb
+            # asset_name: seismic-${{steps.version.outputs.prop}}-linux-x64.deb
+            # asset_content_type: application/octet-stream
+            files: ./src-tauri/target/release/upload/seismic_${{steps.version.outputs.prop}}_amd64.deb
 
       - name: Hash
         run: cat ./src-tauri/target/release/upload/seismic-${{steps.version.outputs.prop}}-${{matrix.name}}-x64.sig
